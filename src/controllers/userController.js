@@ -196,7 +196,7 @@ let getById = async (req, res) => {
 
         if (!user) return res.status(400).send({ status: false, messgage: ' user does not exists' })
 
-        return res.status(200).send({ status: true, message: 'User pfofile details', data: user })
+        return res.status(200).send({ status: true, message: 'User profile details', data: user })
     }
     catch (error) {
         return res.status(500).send({ status: false, error: error.message })
@@ -281,11 +281,11 @@ const updateUser = async (req, res) => {
         }
        
         if (address) {
-
+            // console.log(address)
             let shippingAddressToString = JSON.stringify(address)   // convert object into string
 
             let parsedShippingAddress = JSON.parse(shippingAddressToString)  // convert string in to object
-
+            // console.log(parsedShippingAddress)
             if (isValidRequestBody(parsedShippingAddress)) {
                 if (parsedShippingAddress.hasOwnProperty('shipping')) {
                     if (parsedShippingAddress.shipping.hasOwnProperty('street')) {

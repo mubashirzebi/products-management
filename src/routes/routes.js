@@ -12,7 +12,7 @@ const {authentication,authorization} = require('../middleware/auth')
 //User's Api
 router.post("/register",createUser) 
 router.post("/login",loginUser) 
-router.get("/user/:userId/profile",authentication,getById) 
+router.get("/user/:userId/profile",authentication,authorization,getById) // m
 router.put("/user/:userId/profile",authentication,authorization,updateUser) 
 
 //product's Api
@@ -31,7 +31,7 @@ router.delete("/users/:userId/cart",authentication,authorization,deleteCart)
 
 //Order's Api
 router.post("/users/:userId/orders",authentication,authorization,orderCreation) 
-router.put("/users/:userId/orders",authentication,authorization,updateOrder) 
+router.put("/users/:userId/orders",authentication,authorization,updateOrder)  //m
 
 
 

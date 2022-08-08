@@ -116,7 +116,7 @@ const updateCart = async function (req, res) {
 
         const userId = req.params.userId
         let { productId, cartId, removeProduct } = req.body
-        let userIdFromToken = req.userId
+       
 
         productId = productId?.toString().trim()
         cartId = cartId?.toString().trim()

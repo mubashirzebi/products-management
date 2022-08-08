@@ -31,7 +31,7 @@ const createProduct = async (req, res) => {
         }
         if (title) {
             if (!validString(title) || !isValidScripts(title))
-                return res.status(400).send({ status: false, message: "Title is invalid (Should Contain Alphabets, numbers, quotation marks  & [@ , . ; : ? & ! _ - $]." })
+                return res.status(400).send({ status: false, message: "Title is invalid (Should Contain Alphabets, numbers." })
             const isTitleAlreadyUsed = await productModel.findOne({ title });
 
             if (isTitleAlreadyUsed) {
@@ -209,7 +209,7 @@ const getProduct = async function (req, res) {
                 return res.status(400).send({ status: false, message: "priceGreaterThan and priceLessThan can not be the equal " })
             }
             if (Number(priceGreaterThan) > Number(priceLessThan)) {
-                console.log(priceGreaterThan, priceLessThan)
+
                 return res.status(400).send({ status: false, message: "priceGreaterThan can not be more than priceLessThan" })
             }
 
@@ -288,6 +288,7 @@ const updateProduct = async function (req, res) {
         if (requestBody.isDeleted && requestBody.isDeleted != "false") {
             return res.status(400).send({ status: false, data: "isDeleted must be false" })
         }
+        const updatedProductDetails = {}
 
         if (files) {
 
@@ -295,8 +296,9 @@ const updateProduct = async function (req, res) {
 
                 let updatedproductImage = await uploadFile(files[0]);
 
-                if (!updatedProductDetails.hasOwnProperty('productImage'))
+                if (!updatedProductDetails.hasOwnProperty('productImage')) {
                     updatedProductDetails['productImage'] = updatedproductImage
+                }
             }
         }
 
@@ -306,7 +308,7 @@ const updateProduct = async function (req, res) {
             return res.status(404).send({ status: false, message: `product not found` })
         }
 
-        const updatedProductDetails = {}
+
 
         if (title == "")
             return res.status(400).send({ status: false, message: "Title  cannot be empty" })
@@ -393,9 +395,9 @@ const updateProduct = async function (req, res) {
                     return res.status(400).send({ status: false, message: `availableSizes should be among ${["S", "XS", "M", "X", "L", "XXL", "XL"]}` })
                 }
             }
-            if (!updatedProductDetails.hasOwnProperty(updatedProductDetails, '$set'))
-                updatedProductDetails['$set'] = {}
-            updatedProductDetails['$set']['availableSizes'] = sizesArray//{ $set: sizesArray }
+           
+            updatedProductDetails['$set'] = {}
+            updatedProductDetails['$set']['availableSizes'] = sizesArray //{$set : {availableSizes : sizesArray}}
         }
 
         if (installments == "") {
